@@ -1,17 +1,17 @@
 package io.programms.Collections.secretSanta;
 
 import org.apache.commons.lang3.ArrayUtils;
-
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class App {
 
     public static void main(String[] args) {
+        String[] names = {"Alex", "Sasha", "Maxim", "John", "Nikolay", "Jack", "Masha"};
+        Set<Person> persons = getEntities(names);
         System.out.println("Текущие участники на дарение подарков:");
-        getEntities().forEach(System.out::println);
+        persons.forEach(System.out::println);
         System.out.println("Назначенные пары (Первый -> Второму ... Последний -> Первому):");
-        getPairsOfPersons(getEntities()).entrySet().forEach(System.out::println);
+        getPairsOfPersons(persons).entrySet().forEach(System.out::println);
 
     }
 
@@ -20,29 +20,20 @@ public class App {
         persons.forEach((key) -> pairs.put(key, null));
 
         List<Person> listOfPersons = new ArrayList<>(pairs.keySet());
-        Collections.shuffle(listOfPersons);
+//        Collections.shuffle(listOfPersons);
 
-        for (var pair: pairs.entrySet()) {
-            Person personKey = pair.getKey();
-
-            Person currentPerson = null;
-
-            for (var personValue: listOfPersons) {
-                if (!personKey.getId().equals(personValue.getId())) {
-                    pairs.put(personKey, personValue);
-                    currentPerson = personValue;
-                    break;
-                }
+        for (int i = 0; i < listOfPersons.size(); i++) {
+            if (i + 1 != listOfPersons.size()) {
+                pairs.put(listOfPersons.get(i), listOfPersons.get(i + 1));
+            } else {
+                pairs.put(listOfPersons.get(i), listOfPersons.getFirst());
             }
-            listOfPersons.remove(currentPerson);
-
         }
         return pairs;
     }
 
-    private static Set<Person> getEntities() {
+    private static Set<Person> getEntities(String[] names) {
 
-        String[] names = {"Alex","Sasha","Maxim","John","Nikolay","Jack"};
         int[] ids = new int[names.length];
         Random rn = new Random();
         int maximum = names.length;
