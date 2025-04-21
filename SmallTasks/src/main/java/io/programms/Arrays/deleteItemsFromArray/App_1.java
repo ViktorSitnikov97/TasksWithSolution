@@ -1,4 +1,4 @@
-package io.programms.Arrays.webinar1;
+package io.programms.Arrays.deleteElementsFromArray;
 
 import java.util.Arrays;
 
