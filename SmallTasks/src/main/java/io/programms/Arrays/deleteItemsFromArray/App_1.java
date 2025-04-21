@@ -1,4 +1,4 @@
-package io.programms.Arrays.deleteElementsFromArray;
+package io.programms.Arrays.deleteItemsFromArray;
 
 import java.util.Arrays;
 
